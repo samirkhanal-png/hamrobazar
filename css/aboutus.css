@@ -1,0 +1,116 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.story_container{
+    display: flex;
+    padding:4rem;
+    width: 100%;
+}
+.text{
+    width: 50%;
+    padding-right:20px;
+    padding-top:5rem;
+}
+img{
+  width: 50vw; 
+  height:80vh;
+}
+
+.box{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 4rem;
+    justify-content: space-between;
+    width: 100%;
+    align-content:space-between
+}
+.box_item{
+    border: 2px solid black;
+    height: 200px;
+    width: 200px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5%;
+    border-color: rgb(229, 217, 217);
+}
+
+.circle_img {
+    border: 2px solid black;
+    height: 50%;
+    width: 50%;
+    border-radius: 50px;
+    border-style: none;
+    border: 10px solid rgba(91, 89, 89, 0.707);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.circle_img img {
+    height: 80%;
+    width: 80%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+
+h2{
+ display: block;
+}
+.man{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 4rem;
+    width: 100%;
+    align-content:space-between;
+}
+.man_item{
+    border: 2px solid black;
+    height: 275px;
+    width: 205px;
+    display: flex;
+    border-radius: 5%;
+    border-color: rgb(229, 217, 217);
+    cursor: pointer;
+}
+
+.man_item img{
+    height: 100%;
+    width: 90%;
+    object-fit: center cover;
+}
+
+@media screen and (max-width: 770px){
+   .story_container{
+    flex-direction:column;
+   } 
+   .text{
+    width: 100%;
+    padding-bottom:30px;
+    text-align:justify ;
+   }
+
+   img{
+    width: 100%;
+    height: 50%;
+   }
+   .box{
+    gap: 1rem;
+    justify-content: center;
+   }
+   .man{
+    gap: 1rem;
+    justify-content: center;
+   }
+
+  
+}
+
+
