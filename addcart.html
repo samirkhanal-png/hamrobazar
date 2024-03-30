@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="components/header.js"></script>
+  <script src="components/footer.js"></script>
+  <script src="js/cart.js"></script>
+  <style>
+   body{
+    height: 100vh;
+   }
+
+   .cart_table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 80%;
+      height: 70%;
+      margin: 50px auto;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      font-size: 20px;
+      overflow: scroll;
+      }
+
+
+
+    .cart_table th,
+    .cart_table td {
+      border: 1px solid #ddd;
+      text-align: left;
+      padding: 20px;
+      }
+
+    .cart_table tr:nth-child(even) {
+      background-color: ghostwhite;
+      }
+
+      .cart_details tr{
+        height: 50%;
+      }
+
+      .p_details{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .p_img{
+        width: 100px;
+        height: 100px;
+      }
+
+      .remove,.checkout{
+        width: max-content;
+        background: red;
+        padding: 10px 20px;
+        margin-top: 10px;
+        border: none;
+        color: white;
+        border-radius: 5px;
+        font-size: 20px;
+        cursor: pointer;
+      }
+
+      .checkout{
+        margin:0 10%;
+        margin-bottom: 40px;
+      }
+
+      .cart_title{
+        display: inline-block;
+        margin-left: 10%;
+        margin-top: 10px;
+        padding:10px 30px;
+        border-radius: 5px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        background: ghostwhite;
+      }
+
+        </style>
+</head>
+<body>
+  <header-component></header-component>
+  <h2 class="cart_title">Items added in your cart</h2>
+   <table class="cart_table" border-spacing="0" border-collapse="collapse">
+    <thead>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Price($)</th>
+    </thead>
+
+    <tbody class="cart_items">
+      
+    </tbody>
+   </table>
+
+   <button class="checkout">Checkout Now</button>
+
+   <footer-component></footer-component>
+
+   <script>
+    let p_name=localStorage.getItem("Product_Name");
+    let p_price=localStorage.getItem("Product_Price");
+    let p_quantity=localStorage.getItem("quantity");
+    let p_image=localStorage.getItem("P_img_src");
+    let p_color=localStorage.getItem("color");
+    let p_size=localStorage.getItem("size");
+
+    console.log(p_name);
+    console.log(p_price);
+    console.log(p_quantity);
+    console.log(p_image);
+
+    if(p_name!=null&&p_price!=null&&p_quantity!=null&&p_image!=null){
+      document.querySelector(".cart_items").innerHTML=`
+    <tr class="cart_details">
+    <td class="p_details">
+        <img src="${p_image}" class="p_img">
+      <p><b>Product Name:</b>${p_name}</p>
+      <p><b>Color:</b>${p_color}</p>
+      <p><b>Size:</b>${p_size}</p>
+      <button class="remove">Remove</button>
+      </td>
+    <td>${p_quantity}</td>
+    <td>${p_price}</td>
+    </tr>
+    `    
+    }
+    else{
+      document.querySelector(".cart_items").innerHTML=`
+   <tr class="cart_details">
+    <td class="p_details">
+     Product not added to cart
+      </td>
+    <td>No quantity selected</td>
+    <td>No price</td>
+    </tr>
+    ` 
+    }
+   
+
+    let remove=document.querySelector(".remove");
+    remove.addEventListener("click",()=>{
+      localStorage.removeItem("Product_Name");
+      localStorage.removeItem("Product_Price");
+      localStorage.removeItem("quantity");
+      localStorage.removeItem("P_img_src");
+      localStorage.removeItem("color");
+      localStorage.removeItem("size");
+      window.location.reload();
+
+    })
+
+   </script>
+</body>
+</html>

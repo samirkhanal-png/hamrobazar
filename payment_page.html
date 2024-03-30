@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="components/header.js"></script>
+  <script src="components/footer.js"></script>
+<script async
+  src="https://pay.google.com/gp/p/js/pay.js"
+  onload="onGooglePayLoaded()"></script>
+
+<style>
+*{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body{
+  height: 100%;
+
+}
+
+.payment_form{
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  height: 80%;
+  margin: 0 auto;
+}
+
+.personal_details{
+  margin:50px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 40%;
+  height: 80vh;
+}
+
+  .pd_f{
+    width: 100%;
+    height: 80vh;
+  }
+
+  .p_text{
+    font-size: 10px;
+    color: grey;
+  }
+
+  .pd_f input{
+    width: 100%;
+    height: 40px;
+    background: ghostwhite;
+    border: none;
+  }
+
+
+
+  .bill_details{
+    display: flex;
+    width: 40%;
+    height: 70%;
+    flex-direction: column;
+    margin: 60px 0;
+  }
+
+  .bd_f{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+ .pd_b{
+  display: flex;
+  justify-content: space-between;
+ }
+  
+ img.upi{
+  width: 20px;
+  height: 20px;
+  border: 2px solid red;
+  border-radius:50%;
+ }
+
+ .order_btn{
+  display: none;
+  margin-top:40px;
+  background: red;
+  padding: 10px 30px;
+  border: none;
+  color: white;
+  cursor: pointer;
+ }
+
+ #op1,#op2{
+  cursor: pointer;
+ }
+
+#container{
+  display: none;
+  margin-top: 20px;
+}
+
+.line{
+  width: 100%;
+  border: 1px solid grey;
+}
+
+input[type='checkbox']{
+  accent-color:red;
+}
+.order_msg{
+  border: 2px solid rgb(207, 204, 204);
+  width: 200px;
+  height: 100px;
+  margin-top:20px ;
+  background: ghostwhite;
+  border-radius:20px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  justify-content: space-between;
+  display: none;
+  padding: 20px;
+}
+
+.close_button{
+  width: 20px;
+  height: 20px;
+  background: ghostwhite;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius:50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 770px) {
+.payment_form{
+  flex-direction: column;
+}
+
+.personal_details,.bill_details{
+  width: 90%;
+  margin: 20px auto;
+}
+}
+</style>
+
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+   <header-component></header-component>
+  <div class="payment_form">
+
+    <div class="personal_details">
+
+      <div class="pd_f">
+
+        <span class="p_text">First Name</span>
+      </br>
+      <input type="text" name="" id="">
+      </div>
+
+      <div class="pd_f">
+        
+        <span class="p_text">Company Name</span>
+      </br>
+      <input type="text" name="" id="">
+      </div>
+
+      <div class="pd_f">
+        
+        <span class="p_text">Apartment,floor,etc(Optional)</span>
+      </br>
+      <input type="text" name="" id="">
+      </div>
+
+      <div class="pd_f">
+        
+        <span class="p_text">Town,City</span>
+      </br>
+      <input type="text" name="" id="">
+      </div>
+
+      <div class="pd_f">
+        
+        <span class="p_text">Phone Number</span>
+      </br>
+      <input type="number" name="" id="">
+      </div>
+    <div class="pdf_f"><input type="checkbox" name="" id="" style="color: red"> <span class="pd_f" style="font-size: 12px;">Save this form for faster checkout next time.</span></div>
+     
+    
+
+    </div>
+
+    <div class="bill_details">
+      <!-- <div class="pd_b">
+        <p class="p_name">LCD Monitor</p>
+        <p class="p_price">650</p>
+      </div>
+
+      <div class="pd_b">
+        <p class="p_name">CPU</p>
+        <p class="p_price">1000</p>
+      </div> -->
+
+      <div class="bd_f"><p class="bd_text">Subtotal</p> <p class="bd_price subtotal"></p></div>
+      <div class="line"></div>
+     
+        <div class="bd_f">
+          <p class="bd_text shipping">Shipping</p> 
+       <p class="bd_price">Free</p>
+      </div>
+      <div class="line"></div>
+
+      
+          <div class="bd_f">
+            <p class="bd_text">Total</p>
+             <p class="bd_price total"></p>
+            </div>
+
+          <div class="bd_f">
+            <input type="radio" name="op" id="op1" false > <img class="upi" src="image/Payment_page/gpay.png" alt="" srcset="">
+          </div>
+          
+          <div class="bd_f" style="margin-top: 20px;">
+            <input type="radio" name="op" id="op2" flase> <label for="op2" style="margin-left: 5px;"><b>Cash on Delivery</b></label>
+          </div>
+
+           <button class="order_btn">Pay on Delivery</button>
+        
+           <div id="container"></div>
+
+           <div class="order_msg" style="display: none;">
+           
+           Your order is placed successfully.
+           <div class="close_button" >X</div>
+          </div>
+
+
+    <special-footer></special-footer>
+      
+    </div>
+  </div>
+  </div>
+
+  <footer-component></footer-component>
+<script>
+
+
+  const baseRequest = {
+    apiVersion: 2,
+    apiVersionMinor: 0
+  };
+  
+ 
+  const allowedCardNetworks = ["AMEX", "DISCOVER", "INTERAC", "JCB", "MASTERCARD", "VISA"];
+  
+  
+  const allowedCardAuthMethods = ["PAN_ONLY", "CRYPTOGRAM_3DS"];
+  
+  
+  const tokenizationSpecification = {
+    type: 'PAYMENT_GATEWAY',
+    parameters: {
+      'gateway': 'example',
+      'gatewayMerchantId': 'exampleGatewayMerchantId'
+    }
+  };
+  
+  
+  const baseCardPaymentMethod = {
+    type: 'CARD',
+    parameters: {
+      allowedAuthMethods: allowedCardAuthMethods,
+      allowedCardNetworks: allowedCardNetworks
+    }
+  };
+  
+ 
+  const cardPaymentMethod = Object.assign(
+    {},
+    baseCardPaymentMethod,
+    {
+      tokenizationSpecification: tokenizationSpecification
+    }
+  );
+  
+ 
+  let paymentsClient = null;
+  
+  function getGoogleIsReadyToPayRequest() {
+    return Object.assign(
+        {},
+        baseRequest,
+        {
+          allowedPaymentMethods: [baseCardPaymentMethod]
+        }
+    );
+  }
+  
+  function getGooglePaymentDataRequest() {
+    const paymentDataRequest = Object.assign({}, baseRequest);
+    paymentDataRequest.allowedPaymentMethods = [cardPaymentMethod];
+    paymentDataRequest.transactionInfo = getGoogleTransactionInfo();
+    paymentDataRequest.merchantInfo = {
+      
+      merchantName: 'Example Merchant'
+    };
+  
+    paymentDataRequest.callbackIntents = ["PAYMENT_AUTHORIZATION"];
+  
+    return paymentDataRequest;
+  }
+  
+  
+  function getGooglePaymentsClient() {
+    if ( paymentsClient === null ) {
+      paymentsClient = new google.payments.api.PaymentsClient({
+          environment: 'TEST',
+        paymentDataCallbacks: {
+          onPaymentAuthorized: onPaymentAuthorized
+        }
+      });
+    }
+    return paymentsClient;
+  }
+  
+  
+  function onPaymentAuthorized(paymentData) {
+    return new Promise(function(resolve, reject){
+      // handle the response
+      processPayment(paymentData)
+        .then(function() {
+          resolve({transactionState: 'SUCCESS'});
+        })
+        .catch(function() {
+          resolve({
+            transactionState: 'ERROR',
+            error: {
+              intent: 'PAYMENT_AUTHORIZATION',
+              message: 'Insufficient funds, try again. Next attempt should work.',
+              reason: 'PAYMENT_DATA_INVALID'
+            }
+          });
+        });
+    });
+  }
+  
+ 
+  function onGooglePayLoaded() {
+    const paymentsClient = getGooglePaymentsClient();
+    paymentsClient.isReadyToPay(getGoogleIsReadyToPayRequest())
+      .then(function(response) {
+        if (response.result) {
+          addGooglePayButton();
+        }
+      })
+      .catch(function(err) {
+        // show error in developer console for debugging
+        console.error(err);
+      });
+  }
+  
+ 
+  function addGooglePayButton() {
+    const paymentsClient = getGooglePaymentsClient();
+    const button =
+        paymentsClient.createButton({onClick: onGooglePaymentButtonClicked});
+    document.getElementById('container').appendChild(button);
+  }
+  
+  
+  function getGoogleTransactionInfo() {
+    return {
+          displayItems: [
+          {
+            label: "Subtotal",
+            type: "SUBTOTAL",
+            price: "11.00",
+          },
+        {
+            label: "Tax",
+            type: "TAX",
+            price: "1.00",
+          }
+      ],
+      countryCode: 'US',
+      currencyCode: "USD",
+      totalPriceStatus: "FINAL",
+      totalPrice: "12.00",
+      totalPriceLabel: "Total"
+    };
+  }
+  
+
+  function onGooglePaymentButtonClicked() {
+    const paymentDataRequest = getGooglePaymentDataRequest();
+    paymentDataRequest.transactionInfo = getGoogleTransactionInfo();
+  
+    const paymentsClient = getGooglePaymentsClient();
+    paymentsClient.loadPaymentData(paymentDataRequest);
+  }
+  
+  let attempts = 0;
+  
+  function processPayment(paymentData) {
+    return new Promise(function(resolve, reject) {
+      setTimeout(function() {
+        // @todo pass payment token to your gateway to process payment
+        paymentToken = paymentData.paymentMethodData.tokenizationData.token;
+  
+        if (attempts++ % 2 == 0) {
+          reject(new Error('Every other attempt fails, next one should succeed'));      
+        } else {
+          resolve({});      
+        }
+      }, 500);
+    });
+  }
+  
+  //Payment options code written by Samir Khanal
+let flag;
+let upi_option = document.querySelector("#op1");
+let upi_btn = document.querySelector("#container");
+upi_option.addEventListener("click", () => {
+    if (flag === 2) {
+        order_btn.style.display = "none";
+    }
+    upi_btn.style.display = "block";
+    flag = 1;
+});
+
+
+  
+   let cod_o=document.querySelector("#op2");
+   let order_btn=document.querySelector(".order_btn");
+   let order_msg=document.querySelector(".order_msg");
+
+   
+   cod_o.addEventListener("click",()=>{
+    if(flag===1){
+    upi_btn.style.display="none";
+    }
+    order_btn.style.display="block";
+    order_btn.addEventListener("click",()=>{
+       order_msg.style.display="block";
+    })
+    flag=2;
+   })
+
+
+   let c_b=document.querySelector(".close_button");
+   c_b.addEventListener("click",()=>{
+    order_msg.style.display="none";
+   })
+
+   document.querySelector(".bill-details").prepend(
+    <div class="pd_b">
+        <p class="p_name">LCD Monitor</p>
+        <p class="p_price">650</p>
+      </div>
+   )
+
+
+  </script>
+</body>
+</html>
