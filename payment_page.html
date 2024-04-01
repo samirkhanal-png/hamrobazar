@@ -196,6 +196,9 @@ input[type='checkbox']{
     </div>
 
     <div class="bill_details">
+      <div class="pd" style="display: flex;flex-direction: column;">
+     
+      </div>
       <!-- <div class="pd_b">
         <p class="p_name">LCD Monitor</p>
         <p class="p_price">650</p>
@@ -209,9 +212,9 @@ input[type='checkbox']{
       <div class="bd_f"><p class="bd_text">Subtotal</p> <p class="bd_price subtotal"></p></div>
       <div class="line"></div>
      
-        <div class="bd_f">
+        <div class="bd_f shipping">
           <p class="bd_text shipping">Shipping</p> 
-       <p class="bd_price">Free</p>
+       <p class="bd_price ship_p">50</p>
       </div>
       <div class="line"></div>
 
@@ -248,6 +251,66 @@ input[type='checkbox']{
 
   <footer-component></footer-component>
 <script>
+  //Payment options code written by Samir Khanal
+  let flag;
+let upi_option = document.querySelector("#op1");
+let upi_btn = document.querySelector("#container");
+upi_option.addEventListener("click", () => {
+    if (flag === 2) {
+        order_btn.style.display = "none";
+    }
+    upi_btn.style.display = "block";
+    flag = 1;
+});
+
+
+  
+   let cod_o=document.querySelector("#op2");
+   let order_btn=document.querySelector(".order_btn");
+   let order_msg=document.querySelector(".order_msg");
+
+   
+   cod_o.addEventListener("click",()=>{
+    if(flag===1){
+    upi_btn.style.display="none";
+    }
+    order_btn.style.display="block";
+    order_btn.addEventListener("click",()=>{
+       order_msg.style.display="block";
+    })
+    flag=2;
+   })
+
+
+   let c_b=document.querySelector(".close_button");
+   c_b.addEventListener("click",()=>{
+    order_msg.style.display="none";
+   })
+
+   let p_name=localStorage.getItem("Product_Name");
+    let p_price=localStorage.getItem("Product_Price");
+    let p_quantity=localStorage.getItem("quantity");
+
+   document.querySelector(".pd").innerHTML=`
+    <div class="pd_b">
+        <p class="p_name">${p_quantity} ${p_name}</p>
+        <p class="p_price">${p_price}</p>
+      </div>`;
+
+      let subtotal=p_price*p_quantity;
+
+      document.querySelector(".subtotal").innerHTML=`
+     <p class="subtotal_price">${subtotal}</p>
+  `
+
+    let shipping=document.querySelector(".ship_p").innerText;
+
+    let total=subtotal+parseInt(shipping);
+    document.querySelector(".total").innerHTML=`
+    <p class="total_price">${total}</p>
+    `
+
+   
 
 
   const baseRequest = {
@@ -379,7 +442,7 @@ input[type='checkbox']{
           {
             label: "Subtotal",
             type: "SUBTOTAL",
-            price: "11.00",
+            price: "11",
           },
         {
             label: "Tax",
@@ -390,7 +453,7 @@ input[type='checkbox']{
       countryCode: 'US',
       currencyCode: "USD",
       totalPriceStatus: "FINAL",
-      totalPrice: "12.00",
+      totalPrice: "12",
       totalPriceLabel: "Total"
     };
   }
@@ -421,43 +484,6 @@ input[type='checkbox']{
     });
   }
   
-  //Payment options code written by Samir Khanal
-let flag;
-let upi_option = document.querySelector("#op1");
-let upi_btn = document.querySelector("#container");
-upi_option.addEventListener("click", () => {
-    if (flag === 2) {
-        order_btn.style.display = "none";
-    }
-    upi_btn.style.display = "block";
-    flag = 1;
-});
-
-
-  
-   let cod_o=document.querySelector("#op2");
-   let order_btn=document.querySelector(".order_btn");
-   let order_msg=document.querySelector(".order_msg");
-
-   
-   cod_o.addEventListener("click",()=>{
-    if(flag===1){
-    upi_btn.style.display="none";
-    }
-    order_btn.style.display="block";
-    order_btn.addEventListener("click",()=>{
-       order_msg.style.display="block";
-    })
-    flag=2;
-   })
-
-
-   let c_b=document.querySelector(".close_button");
-   c_b.addEventListener("click",()=>{
-    order_msg.style.display="none";
-   })
-
-
 
 
   </script>
