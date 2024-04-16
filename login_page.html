@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <script  src="components/header.js"></script>
     <script  src="components/footer.js"></script>
     <title>Login Page</title>
@@ -19,18 +19,16 @@
                 <h2 class="formtittle">Log into your account</h2>
                 <p class="ath p">Enter Your Detail Below</p>
                 <div class="formgrp">
-                    <input type="text" placeholder="Name" class="forminp"/>
+                    <input type="text" placeholder="Name" class="forminp name"/>
                 </div>
                 <div class="formgrp">
-                    <input type="email" placeholder="Email" class="forminp"/>
+                    <input type="email" placeholder="Email" class="forminp email"/>
                 </div>
                 <div class="formgrp formpass">
-                    <input type="password" placeholder="password" class="forminp"/>
+                    <input type="password" placeholder="Password" class="forminp password"/>
                 </div>
                 <div class="formgrp">
-                    <button class="formbtn">
-                        <a href="#" class="formlink" style="color: white;">Create Account</a>
-                    </button>
+                    <input type="button" value="Log In" class="formbtn submit" style="cursor: pointer">
                 </div>
                 <div class="formgrp">
                     
@@ -40,8 +38,50 @@
      
        </div>
        <div class="acc_img">
-          <img src="image/create_acc_page/create_acc_page.jpg" alt="Create_Account" >
+          <img src="/image/create_acc_page/create_acc_page.jpg" alt="Create_Account" >
        </div>
     </div>
 </section>
 <footer-component></footer-component>
+<script>
+    let form_f=document.querySelectorAll(".forminp");
+    let name=document.querySelector(".name");
+    let email=document.querySelector(".email");
+    let password=document.querySelector(".password");
+
+    let tar_un=localStorage.getItem("UserName");
+    let tar_email=localStorage.getItem("Email");
+    let tar_password=localStorage.getItem("Password");
+
+    let i_name,i_email,i_password;
+
+    form_f.forEach(field=>{
+        field.addEventListener("blur",()=>{
+             i_name=name.value;
+             i_email=email.value;
+             i_password=password.value;
+        })
+    })
+
+    let button=document.querySelector(".formbtn");
+    button.addEventListener("click",()=>{
+        if(i_name==="" || i_email==="" || i_password===""){
+            alert("Please fill all the fields");
+            return;
+        }
+
+        if(i_name===tar_un && i_email===tar_email && i_password===tar_password){
+            alert("Login Successful");
+            form_f.forEach(field=>{
+        field.value="";
+    })
+        }
+        else{
+            alert("Login Failed");
+        }
+
+        
+    })
+
+</script>
+</html>
