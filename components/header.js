@@ -12,6 +12,7 @@ class header extends HTMLElement {
          <li class="nav_item"><a href="aboutus.html" class="nav_link">About</a></li>
          <li class="nav_item"><a href="login_page.html" class="nav_link">Login</a></li>
          <li class="nav_item"><a href="create_acc.html" class="nav_link">Sign Up</a></li>
+         <li class="nav_item"><a href="manage_accounts.html" class="nav_link">Manage Account</a></li>
         </ul>
         <div class="nav_items">
          <form action="#" class="nav_form">
